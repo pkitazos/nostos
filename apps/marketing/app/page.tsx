@@ -1,25 +1,23 @@
-import { createDB } from '@nostos/db'
+import { createDB } from "@nostos/db";
+import { env } from "../env";
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 // export const revalidate = 60 // change to ISR once I figure it out
 
-const db = createDB(process.env.DATABASE_URL!)
+const db = createDB(env.DATABASE_URL);
 
 export default async function Home() {
-  const customers = await db
-    .selectFrom('customers')
-    .selectAll()
-    .execute()
+  const customers = await db.selectFrom("customers").selectAll().execute();
 
   return (
     <div>
       <h1>Marketing - Customers</h1>
-      {customers.map(customer => (
+      {customers.map((customer) => (
         <div key={customer.id}>
           <h2>{customer.name}</h2>
           <p>{customer.site_url}</p>
         </div>
       ))}
     </div>
-  )
+  );
 }
