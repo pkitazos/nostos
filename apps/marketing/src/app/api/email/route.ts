@@ -4,7 +4,7 @@ import { formSchema } from "apps/marketing/src/lib/validations/customer-form";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  sendgrid.setApiKey(env.SENDGRID_API_KEY);
+  // sendgrid.setApiKey(env.SENDGRID_API_KEY);
 
   const data = await req.json();
   const { subject, name, email, message } = formSchema.parse(data);
