@@ -20,13 +20,11 @@ export const createAdminEnv = () =>
     server: {
       ...sharedSchema,
       // Admin-specific server vars
-      S3_UPLOAD_KEY: z.string().min(1),
-      S3_UPLOAD_SECRET: z.string().min(1),
-      S3_UPLOAD_BUCKET: z.string().min(1),
-      S3_UPLOAD_REGION: z.string().min(1),
+      CLERK_SECRET_KEY: z.string(),
     },
     client: {
       ...sharedClientSchema,
+      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
       // Admin-specific client vars
     },
     clientPrefix: "NEXT_PUBLIC_",
