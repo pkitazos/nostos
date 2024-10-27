@@ -1,10 +1,8 @@
-import { db } from "@nostos/db";
-
 export const dynamic = "force-dynamic";
 // export const revalidate = 60 // change to ISR once I figure it out
 
 export default async function Home() {
-  const customers = await db.selectFrom("customers").selectAll().execute();
+  const customers: any[] = [];
 
   return (
     <div>

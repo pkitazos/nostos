@@ -1,9 +1,9 @@
-import { db } from "@nostos/db";
+import { db } from "../db";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const customers = await db.selectFrom("customers").selectAll().execute();
+  const customers = await db.getCustomers();
 
   return (
     <div>

@@ -1,31 +1,24 @@
-import { createDatabaseEnv } from "@nostos/env";
-import { Kysely, PostgresDialect } from "kysely";
-import { Pool } from "pg";
-import type { Database } from "./types";
+import { Generated, Selectable } from "kysely";
 
-const env = createDatabaseEnv();
+export interface Database {
+  customers: CustomerTable;
+  customer_images: CustomerImagesTable;
+}
 
-const createDB = () => {
-  const dialect = new PostgresDialect({
-    pool: new Pool({
-      connectionString: env.DATABASE_URL,
-      ssl:
-        env.NODE_ENV === "production"
-          ? {
-              rejectUnauthorized: true,
-            }
-          : false,
-      max: 10,
-    }),
-  });
+interface CustomerTable {
+  id: Generated<string>;
+  name: string;
+  site_url: string | null;
+  visible: boolean;
+}
 
-  return new Kysely<Database>({
-    dialect,
-  });
-};
+interface CustomerImagesTable {
+  id: Generated<string>;
+  customer_id: string;
+  url: string;
+  order_index: number;
+  metadata: Generated<Record<string, unknown>>;
+}
 
-export const db = createDB();
-
-// Export types
-export { CustomerPortfolioDB } from "./types";
-export type { Customer, CustomerImage, Database } from "./types";
+export type Customer = Selectable<CustomerTable>;
+export type CustomerImage = Selectable<CustomerImagesTable>;
