@@ -2,14 +2,16 @@
   "name": "@nostos/db",
   "version": "0.0.0",
   "private": true,
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "main": "./dist/index.cjs",   
+  "module": "./dist/index.js",  
   "types": "./dist/index.d.ts",
+  "type": "module",
   "scripts": {
-    "build": "tsup",
+    "build": "tsc --emitDeclarationOnly && tsup",
     "dev": "tsup --watch"
   },
   "dependencies": {
+    "@nostos/env": "workspace:*",
     "kysely": "^0.26.3",
     "pg": "^8.13.1"
   },

@@ -1,14 +1,16 @@
+import { createDatabaseEnv } from "@nostos/env";
 import { Kysely, PostgresDialect } from "kysely";
 import { Pool } from "pg";
 import type { Database } from "./types";
-import { CustomerPortfolioDB } from "./types";
+
+const env = createDatabaseEnv();
 
 const createDB = () => {
   const dialect = new PostgresDialect({
     pool: new Pool({
-      connectionString: process.env.DATABASE_URL,
+      connectionString: env.DATABASE_URL,
       ssl:
-        process.env.NODE_ENV === "production"
+        env.NODE_ENV === "production"
           ? {
               rejectUnauthorized: true,
             }
@@ -24,9 +26,6 @@ const createDB = () => {
 
 export const db = createDB();
 
-// Export the CustomerPortfolioDB instance
-export const customerDB = new CustomerPortfolioDB(db);
-
-// Re-export types
-export type { Customer, CustomerImage } from "./types";
+// Export types
 export { CustomerPortfolioDB } from "./types";
+export type { Customer, CustomerImage, Database } from "./types";

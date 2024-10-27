@@ -1,6 +1,6 @@
 import { Generated, Kysely, Selectable } from "kysely";
 
-export interface Database {
+interface Database {
   customers: CustomerTable;
   customer_images: CustomerImagesTable;
 }
@@ -108,3 +108,5 @@ export class CustomerPortfolioDB {
       .executeTakeFirst();
   }
 }
+
+export type { Database };

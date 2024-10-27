@@ -4,7 +4,10 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "declaration": true,
-    "incremental": false
+    "declarationMap": true,
+    "noEmit": false,
+    "composite": true,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo"
   },
   "include": ["src/**/*"]
 }

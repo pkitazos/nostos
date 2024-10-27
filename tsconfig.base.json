@@ -15,9 +15,12 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@nostos/db": ["packages/db/src"],
-      "@nostos/env": ["packages/env/src"]
-    }
+      "@nostos/db": ["packages/db/dist"],
+      "@nostos/env": ["packages/env/dist"]
+    },
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": false
   },
   "exclude": ["node_modules"]
 }

@@ -62,6 +62,9 @@ importers:
 
   packages/db:
     dependencies:
+      '@nostos/env':
+        specifier: workspace:*
+        version: link:../env
       kysely:
         specifier: ^0.26.3
         version: 0.26.3
