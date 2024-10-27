@@ -38,6 +38,7 @@ export const createMarketingEnv = () =>
     server: {
       ...sharedSchema,
       // Marketing-specific server vars
+      SENDGRID_API_KEY: z.string(),
       REVALIDATE_TOKEN: z.string().optional(),
     },
     client: {
