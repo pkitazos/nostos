@@ -1,19 +1,23 @@
+-- Enable UUID extension
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-CREATE TABLE IF NOT EXISTS customers (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    site_url TEXT,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+-- Customers table
+CREATE TABLE customers (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name VARCHAR(255) NOT NULL UNIQUE,
+    site_url VARCHAR(1024),
+    visible BOOLEAN DEFAULT false
 );
 
-CREATE TABLE IF NOT EXISTS images (
-    id SERIAL PRIMARY KEY,
-    customer_id INTEGER REFERENCES customers(id) ON DELETE CASCADE,
-    url VARCHAR(255) NOT NULL,
-    display_order INTEGER NOT NULL,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+-- Images table with ordering
+CREATE TABLE customer_images (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    customer_id UUID NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
+    url VARCHAR(1024) NOT NULL,
+    order_index INTEGER NOT NULL,
+    metadata JSONB DEFAULT '{}'::jsonb
 );
 
--- Create indexes for common queries
-CREATE INDEX IF NOT EXISTS idx_images_customer_id ON images(customer_id);
-CREATE INDEX IF NOT EXISTS idx_images_display_order ON images(display_order);
+-- Index for faster lookups
+CREATE INDEX customer_images_customer_id_idx ON customer_images(customer_id);
+CREATE INDEX customers_name_idx ON customers(name);

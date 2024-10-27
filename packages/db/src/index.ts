@@ -1,35 +1,32 @@
-import { Kysely, PostgresDialect } from 'kysely'
-import { Pool } from 'pg'
+import { Kysely, PostgresDialect } from "kysely";
+import { Pool } from "pg";
+import type { Database } from "./types";
+import { CustomerPortfolioDB } from "./types";
 
-// Define your database interface
-interface Database {
-  customers: {
-    id: number
-    name: string
-    site_url: string | null
-    created_at: Date
-  }
-  images: {
-    id: number
-    customer_id: number
-    url: string
-    display_order: number
-    created_at: Date
-  }
-}
-
-// Create and export the database connection
-export function createDB(connectionString: string) {
+const createDB = () => {
   const dialect = new PostgresDialect({
     pool: new Pool({
-      connectionString,
-    })
-  })
+      connectionString: process.env.DATABASE_URL,
+      ssl:
+        process.env.NODE_ENV === "production"
+          ? {
+              rejectUnauthorized: true,
+            }
+          : false,
+      max: 10,
+    }),
+  });
 
   return new Kysely<Database>({
     dialect,
-  })
-}
+  });
+};
 
-// Export type helper
-export type DB = Database
+export const db = createDB();
+
+// Export the CustomerPortfolioDB instance
+export const customerDB = new CustomerPortfolioDB(db);
+
+// Re-export types
+export type { Customer, CustomerImage } from "./types";
+export { CustomerPortfolioDB } from "./types";

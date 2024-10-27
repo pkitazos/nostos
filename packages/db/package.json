@@ -11,11 +11,11 @@
   },
   "dependencies": {
     "kysely": "^0.26.3",
-    "pg": "^8.11.3"
+    "pg": "^8.13.1"
   },
   "devDependencies": {
     "@swc/core": "^1.7.39",
-    "@types/pg": "^8.10.9",
+    "@types/pg": "^8.11.10",
     "tsup": "^8.0.1",
     "typescript": "^5.0.0"
   }
