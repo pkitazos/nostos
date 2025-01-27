@@ -21,6 +21,11 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    autoLogin: {
+      email: process.env.ADMIN_EMAIL || '',
+      password: process.env.ADMIN_PASSWORD || '',
+      prefillOnly: true,
+    },
   },
   collections: [Users, Media, Clients, Collaborators],
   editor: lexicalEditor(),
