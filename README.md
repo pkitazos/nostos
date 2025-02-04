@@ -6,10 +6,14 @@ A Marketing Site built using Next JS and Payload CMS, utilising ISR.
 
 - [ ] fix admin panel colours
 - [ ] images not properly fetched after upload
+- [ ] description for clients
+- [ ] do something with client logos
+- [ ] push latest schema to neon
+- [ ] open links externally
 
-- [ ] data access functions
+- [x] data access functions
 - [ ] implement ISR
-- [ ] hook up client collections to their respective page
+- [x] hook up client collections to their respective page
 
 ## Database Setup
 

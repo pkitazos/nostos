@@ -7,6 +7,8 @@ import { Media } from '@/payload-types'
 import { PhotoGallery } from './_components/photo-gallery'
 
 // TODO: make metadata dynamic
+
+export const dynamic = 'force-dynamic'
 export const metadata: Metadata = { title: `Gallery - ${COMPANY_NAME}` }
 
 type PageParams = Promise<{ slug: string }>
