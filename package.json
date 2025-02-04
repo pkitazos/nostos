@@ -4,14 +4,15 @@
   "description": "A blank template to get started with Payload 3.0",
   "license": "MIT",
   "scripts": {
-    "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
-    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
-    "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
-    "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
-    "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
-    "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
-    "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "generate:types": "payload generate:types",
+    "generate:graphQLSchema": "payload generate:graphQLSchema",
+    "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload",
+    "seed": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload seed",
+    "init-db": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts node -r dotenv/config init-script.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

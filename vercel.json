@@ -1,0 +1,9 @@
+{
+  "build": {
+    "env": {
+      "NODEJS_VERSION": "18"
+    }
+  },
+  "installCommand": "pnpm install",
+  "buildCommand": "pnpm run build && pnpm run init-db"
+}

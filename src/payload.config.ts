@@ -21,11 +21,6 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
-    autoLogin: {
-      email: process.env.ADMIN_EMAIL || 'dev@payloadcms.com',
-      password: process.env.ADMIN_PASSWORD || 'nostos-admin-test',
-      prefillOnly: true,
-    },
   },
   collections: [Users, Media, Clients, Collaborators],
   editor: lexicalEditor(),
@@ -46,21 +41,5 @@ export default buildConfig({
         }),
       ]
     : [],
-  async onInit(payload) {
-    const existingUsers = await payload.find({
-      collection: 'users',
-      limit: 1,
-    })
-
-    if (existingUsers.docs.length === 0) {
-      await payload.create({
-        collection: 'users',
-        data: {
-          email: process.env.ADMIN_EMAIL || 'dev@payloadcms.com',
-          password: process.env.ADMIN_PASSWORD || 'nostos-admin-test',
-        },
-      })
-    }
-  },
   sharp,
 })
