@@ -67,9 +67,6 @@ export default {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
-      backgroundImage: {
-        'image-1': "url('/wallpaper.png')",
-      },
       keyframes: {
         'accordion-down': {
           from: {
