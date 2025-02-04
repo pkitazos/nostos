@@ -10,10 +10,20 @@ async function initializeDatabase() {
     await payload.init({
       secret: process.env.PAYLOAD_SECRET,
       local: true,
-      configPath: path.resolve(dirname, 'payload.config.ts'),
+      configPath: path.resolve(dirname, 'src/payload.config.ts'),
     })
 
     console.log('Connected to Payload')
+
+    // Sync all collections with the database
+    await payload.collections.forEach(async (collection) => {
+      await payload.updateCollection({
+        slug: collection.slug,
+        fields: collection.fields,
+      })
+    })
+
+    console.log('Collections synced with database')
 
     // Check if admin user exists
     const adminExists = await payload.find({
@@ -43,7 +53,7 @@ async function initializeDatabase() {
   } catch (error) {
     console.error('Error during database initialization:', error)
   } finally {
-    payload.db.disconnect()
+    await payload.db.disconnect()
   }
 }
 
