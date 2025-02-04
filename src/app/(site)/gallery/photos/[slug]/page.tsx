@@ -1,4 +1,3 @@
-import { Metadata } from 'next'
 import Link from 'next/link'
 
 import { COMPANY_NAME } from '@/content/config'
@@ -6,10 +5,13 @@ import { getClient } from '@/content/get-clients'
 import { Media } from '@/payload-types'
 import { PhotoGallery } from './_components/photo-gallery'
 
-// TODO: make metadata dynamic
-
 export const dynamic = 'force-dynamic'
-export const metadata: Metadata = { title: `Gallery - ${COMPANY_NAME}` }
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const clientName = decodeURIComponent(slug)
+  return { title: `${clientName} - ${COMPANY_NAME}` }
+}
 
 type PageParams = Promise<{ slug: string }>
 
@@ -19,12 +21,17 @@ export default async function Page({ params }: { params: PageParams }) {
 
   return (
     <main className="pt-header flex flex-col items-center">
-      <h1 className="mt-32">
-        Client:{' '}
-        <Link className="text-stone-400 underline" href={client.url} target="_blank">
+      <h1 className="mt-32 text-2xl">
+        <span className="text-zinc-400">Client: </span>
+        <Link
+          className="text-stone-500 decoration-[1.5px] underline-offset-2 hover:underline"
+          href={client.url}
+          target="_blank"
+        >
           {client.name}
         </Link>
       </h1>
+      <p className="mt-14 max-w-2xl text-justify">{client.description}</p>
       <section className="w-full max-w-9xl px-10 pt-32">
         <PhotoGallery images={client.photos?.map((x) => (x.photo as Media)!) ?? []} />
       </section>

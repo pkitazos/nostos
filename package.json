@@ -14,6 +14,8 @@
     "payload:generate:types": "payload generate:types",
     "payload:generate:gql": "payload generate:graphQLSchema",
     "payload:seed": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload seed",
+    "payload:migrate:prod": "cross-env DATABASE_URL=$PROD_DATABASE_URL PAYLOAD_CONFIG_PATH=src/payload.config.ts payload migrate",
+    "payload:migrate:status:prod": "cross-env DATABASE_URL=$PROD_DATABASE_URL PAYLOAD_CONFIG_PATH=src/payload.config.ts payload migrate:status",
     "db:init": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts tsx scripts/database/init.ts",
     "db:reset": "pnpm docker:down:clean && pnpm docker:up && pnpm db:init",
     "docker:up": "docker compose up -d",

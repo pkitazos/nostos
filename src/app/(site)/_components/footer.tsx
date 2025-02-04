@@ -1,4 +1,4 @@
-import { COMPANY_EMAIL } from '@/content/config'
+import { CONTACT_EMAIL } from '@/content/config'
 
 import Link from 'next/link'
 
@@ -6,7 +6,7 @@ export function Footer() {
   return (
     <footer className="flex h-[55dvh] w-full flex-col items-center justify-center gap-5 font-light">
       <h1 className="text-2xl tracking-tight">Share your vision with us.</h1>
-      <p>{COMPANY_EMAIL}</p>
+      <p>{CONTACT_EMAIL}</p>
       <Link href="https://www.instagram.com/nostosagency/">
         <InstagramIcon />
       </Link>

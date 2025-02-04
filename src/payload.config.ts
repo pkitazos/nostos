@@ -1,16 +1,13 @@
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
-import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
-import { s3Storage } from '@payloadcms/storage-s3'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { s3Storage } from '@payloadcms/storage-s3'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import path from 'path'
 import { buildConfig } from 'payload'
-import { fileURLToPath } from 'url'
 import sharp from 'sharp'
+import { fileURLToPath } from 'url'
 
-import { Users } from './collections/Users'
-import { Media } from './collections/Media'
-import { Clients } from './collections/Clients'
-import { Collaborators } from './collections/Collaborators'
+import { Clients, Media, Users } from '@/collections'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -22,7 +19,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Clients, Collaborators],
+  collections: [Users, Media, Clients],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

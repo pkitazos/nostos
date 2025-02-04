@@ -14,7 +14,6 @@ export interface Config {
     users: User;
     media: Media;
     clients: Client;
-    collaborators: Collaborator;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -24,7 +23,6 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     clients: ClientsSelect<false> | ClientsSelect<true>;
-    collaborators: CollaboratorsSelect<false> | CollaboratorsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -125,18 +123,6 @@ export interface Client {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "collaborators".
- */
-export interface Collaborator {
-  id: number;
-  name: string;
-  logo?: (number | null) | Media;
-  url: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -153,10 +139,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'clients';
         value: number | Client;
-      } | null)
-    | ({
-        relationTo: 'collaborators';
-        value: number | Collaborator;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -255,17 +237,6 @@ export interface ClientsSelect<T extends boolean = true> {
         video?: T;
         id?: T;
       };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "collaborators_select".
- */
-export interface CollaboratorsSelect<T extends boolean = true> {
-  name?: T;
-  logo?: T;
-  url?: T;
   updatedAt?: T;
   createdAt?: T;
 }

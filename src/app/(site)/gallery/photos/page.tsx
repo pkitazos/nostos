@@ -13,7 +13,7 @@ export default async function Page() {
   return (
     <ContentSection className="pt-header flex w-full flex-col items-center gap-28">
       <Heading className="pt-28">Photo Gallery</Heading>
-      <PhotoGalleryGrid collaborators={clients} />
+      <PhotoGalleryGrid clients={clients} />
     </ContentSection>
   )
 }

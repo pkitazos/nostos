@@ -10,7 +10,8 @@ A Marketing Site built using Next JS and Payload CMS, utilising ISR.
 - [ ] do something with client logos
 - [ ] push latest schema to neon
 - [ ] open links externally
-
+- [ ] landscape photos in gallery
+- [ ] videos are still broken
 - [x] data access functions
 - [ ] implement ISR
 - [x] hook up client collections to their respective page

@@ -4,7 +4,6 @@ import Link from 'next/link'
 
 import { ContentSection } from '@/components/content-section'
 import { ImageSection } from '@/components/image-section'
-import { PhotoGalleryGrid } from '@/components/photo-gallery-grid'
 import { Button } from '@/components/ui/button'
 import {
   Carousel,
@@ -17,18 +16,16 @@ import { Heading } from '@/components/ui/heading'
 import { Paragraph } from '@/components/ui/paragraph'
 import { COMPANY_NAME } from '@/content/config'
 import { getClients } from '@/content/get-clients'
-import { getCollaborators } from '@/content/get-collaborators'
 import { SITE_IMAGES } from '@/content/images'
 import { toImageUrl } from '@/lib/utils/to-image-url'
 import { Testimonial } from './_components/testimonial'
 
-export const metadata: Metadata = { title: COMPANY_NAME }
-
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = { title: COMPANY_NAME }
 
 export default async function Home() {
   const clients = await getClients()
-  const collaborators = await getCollaborators()
 
   return (
     <>
@@ -140,8 +137,12 @@ export default async function Home() {
       <ContentSection className="flex flex-col items-center justify-start px-10 py-40 sm:py-56 md:px-20 lg:px-20">
         <Heading className="mb-32 sm:mb-56">Our Collaborations</Heading>
         <div className="grid w-full grid-cols-1 place-content-around gap-10 sm:grid-cols-2 sm:gap-16 md:gap-32 lg:grid-cols-3 xl:grid-cols-4">
-          {collaborators.map((collaborator, i) => (
-            <Link key={i} href={collaborator.url} className="h-48 w-64 place-self-center">
+          {clients.map((collaborator, i) => (
+            <Link
+              key={i}
+              href={`/gallery/photos/${encodeURIComponent(collaborator.name)}}`}
+              className="h-48 w-64 place-self-center"
+            >
               <Image
                 height={400}
                 width={400}
@@ -152,9 +153,6 @@ export default async function Home() {
             </Link>
           ))}
         </div>
-      </ContentSection>
-      <ContentSection className="grid place-items-center pb-56">
-        <PhotoGalleryGrid collaborators={clients} />
       </ContentSection>
       <Image className="h-[66dvh] w-full object-cover" {...SITE_IMAGES.home.banner1} alt="" />
       <ImageSection className="flex h-[70dvh] flex-col items-center justify-center gap-5 bg-secondary text-secondary-foreground">

@@ -1,20 +1,14 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image'
+import Link from 'next/link'
 
-import { Heading } from "@/components/ui/heading";
-import { Client } from "@/payload-types";
-import { toImageUrl } from "@/lib/utils/to-image-url";
+import { Heading } from '@/components/ui/heading'
+import { Client } from '@/payload-types'
+import { toImageUrl } from '@/lib/utils/to-image-url'
 
-
-
-export function PhotoGalleryGrid({
-  collaborators,
-}: {
-  collaborators: Client[];
-}) {
+export function PhotoGalleryGrid({ clients }: { clients: Client[] }) {
   return (
     <div className="grid w-5/6 grid-cols-1 grid-rows-2 place-items-center gap-4 md:grid-cols-2">
-      {collaborators.map(({ name, banner_photo }, i) => (
+      {clients.map(({ name, banner_photo }, i) => (
         <Link
           key={i}
           className="relative flex h-[30rem] w-full items-center justify-center bg-black/20 px-10"
@@ -22,7 +16,7 @@ export function PhotoGalleryGrid({
         >
           <Image
             className="absolute left-0 top-0 -z-10 h-full w-full object-cover"
-            src={toImageUrl(banner_photo!) ?? ""}
+            src={toImageUrl(banner_photo!) ?? ''}
             alt=""
             height={400}
             width={900}
@@ -33,5 +27,5 @@ export function PhotoGalleryGrid({
         </Link>
       ))}
     </div>
-  );
+  )
 }
