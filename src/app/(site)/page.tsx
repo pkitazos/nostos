@@ -24,6 +24,8 @@ import { Testimonial } from './_components/testimonial'
 
 export const metadata: Metadata = { title: COMPANY_NAME }
 
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
   const clients = await getClients()
   const collaborators = await getCollaborators()

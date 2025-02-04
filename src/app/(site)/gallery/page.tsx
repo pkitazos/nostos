@@ -21,6 +21,7 @@ import { toImageUrl } from '@/lib/utils/to-image-url'
 
 export const metadata: Metadata = { title: `Gallery - ${COMPANY_NAME}` }
 
+export const dynamic = 'force-dynamic'
 export default async function Page() {
   const collaborators = await getCollaborators()
   const clients = await getClients()
