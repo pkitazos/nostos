@@ -32,7 +32,7 @@ export default buildConfig({
     process.env.NODE_ENV === 'development'
       ? vercelPostgresAdapter({
           pool: {
-            connectionString: 'postgresql://nostos:nostos_local@localhost:5432/nostos',
+            connectionString: 'postgresql://nostos:nostos_local@127.0.0.1:5432/nostos',
           },
         })
       : vercelPostgresAdapter({
