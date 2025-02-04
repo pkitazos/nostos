@@ -5,16 +5,16 @@ export async function getClients() {
 }
 
 export async function getClient(clientId: string) {
-  const clients = await payload.find({ collection: 'clients' }).then((res) => res.docs)
+  const clientName = decodeURIComponent(clientId)
 
-  console.log(
-    'clients',
-    clients.map((x) => encodeURIComponent(x.name)),
-    clientId,
-  )
-  const client = clients.find((client) => encodeURIComponent(client.name) === clientId)
+  const [client] = await payload
+    .find({
+      collection: 'clients',
+      where: { name: { equals: clientName } },
+    })
+    .then((res) => res.docs)
 
-  if (!client) throw new Error('Client not found')
+  if (!client) throw new Error(`Client not found: ${clientName}}`)
 
   return client
 }

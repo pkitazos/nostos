@@ -140,13 +140,13 @@ export default async function Home() {
           {clients.map((collaborator, i) => (
             <Link
               key={i}
-              href={`/gallery/photos/${encodeURIComponent(collaborator.name)}}`}
+              href={`/gallery/photos/${encodeURIComponent(collaborator.name)}`}
               className="h-48 w-64 place-self-center"
             >
               <Image
                 height={400}
                 width={400}
-                className="h-48 w-full object-cover"
+                className="h-[200px] w-[300px] object-cover"
                 src={toImageUrl(collaborator.logo!)}
                 alt=""
               />
