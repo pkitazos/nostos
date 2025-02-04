@@ -13,7 +13,12 @@
     "generate:graphQLSchema": "payload generate:graphQLSchema",
     "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload",
     "seed": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload seed",
-    "init-db": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts tsx src/init-script.ts"
+    "init-db": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts tsx src/init-script.ts",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f",
+    "dev:local": "pnpm docker:up && pnpm dev",
+    "dev:clean": "docker compose down -v"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -21,6 +26,7 @@
     "@payloadcms/next": "latest",
     "@payloadcms/payload-cloud": "latest",
     "@payloadcms/richtext-lexical": "latest",
+    "@payloadcms/storage-s3": "3.14.0",
     "@payloadcms/storage-vercel-blob": "3.14.0",
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-dialog": "^1.1.4",
@@ -37,6 +43,7 @@
     "next": "15.1.0",
     "next-themes": "^0.4.4",
     "payload": "^3.14.0",
+    "pg": "^8.13.1",
     "react": "19.0.0-rc-65a56d0e-20241020",
     "react-dom": "19.0.0-rc-65a56d0e-20241020",
     "react-hook-form": "^7.54.2",
@@ -50,6 +57,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
     "@types/node": "^22.5.4",
+    "@types/pg": "^8.11.11",
     "@types/react": "19.0.1",
     "@types/react-dom": "19.0.1",
     "autoprefixer": "^10.4.20",
