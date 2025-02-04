@@ -4,10 +4,11 @@ import Image from 'next/image'
 import { ContentSection } from '@/components/content-section'
 import { ImageSection } from '@/components/image-section'
 import { Heading } from '@/components/ui/heading'
-import { ContactForm } from './_components/contact-form'
+import { COMPANY_NAME } from '@/content/config'
 import { SITE_IMAGES } from '@/content/images'
+import { ContactForm } from './_components/contact-form'
 
-export const metadata: Metadata = { title: 'Contact Us - Nõstos Agency' }
+export const metadata: Metadata = { title: `Contact Us - ${COMPANY_NAME}` }
 
 export default async function Page() {
   return (

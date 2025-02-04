@@ -5,8 +5,9 @@ import { ImageSection } from '@/components/image-section'
 import { Heading } from '@/components/ui/heading'
 import { Paragraph } from '@/components/ui/paragraph'
 import { SITE_IMAGES } from '@/content/images'
+import { COMPANY_NAME } from '@/content/config'
 
-export const metadata: Metadata = { title: 'Our Philosophy - Nõstos Agency' }
+export const metadata: Metadata = { title: `Our Philosophy - ${COMPANY_NAME}` }
 
 export default async function Page() {
   return (

@@ -1,9 +1,15 @@
 import * as migration_20250204_124221_init_schema from './20250204_124221_init_schema';
+import * as migration_20250204_191332_optional_alt_text from './20250204_191332_optional_alt_text';
 
 export const migrations = [
   {
     up: migration_20250204_124221_init_schema.up,
     down: migration_20250204_124221_init_schema.down,
-    name: '20250204_124221_init_schema'
+    name: '20250204_124221_init_schema',
+  },
+  {
+    up: migration_20250204_191332_optional_alt_text.up,
+    down: migration_20250204_191332_optional_alt_text.down,
+    name: '20250204_191332_optional_alt_text'
   },
 ];

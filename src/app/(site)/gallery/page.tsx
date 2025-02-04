@@ -1,32 +1,33 @@
-import { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
+import { Metadata } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
 
-import { ContentSection } from "@/components/content-section";
-import { EmbeddedReel } from "@/components/embedded-reel";
-import { PhotoGalleryGrid } from "@/components/photo-gallery-grid";
+import { ContentSection } from '@/components/content-section'
+import { EmbeddedReel } from '@/components/embedded-reel'
+import { PhotoGalleryGrid } from '@/components/photo-gallery-grid'
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
-import { Heading } from "@/components/ui/heading";
-import { resultExamples } from "@/content";
-import { getClients } from "@/content/get-clients";
-import { getCollaborators } from "@/content/get-collaborators";
-import { toImageUrl } from "@/lib/utils/to-image-url";
+} from '@/components/ui/carousel'
+import { Heading } from '@/components/ui/heading'
+import { resultExamples } from '@/content'
+import { COMPANY_NAME } from '@/content/config'
+import { getClients } from '@/content/get-clients'
+import { getCollaborators } from '@/content/get-collaborators'
+import { toImageUrl } from '@/lib/utils/to-image-url'
 
-export const metadata: Metadata = { title: "Gallery - Nõstos Agency" };
+export const metadata: Metadata = { title: `Gallery - ${COMPANY_NAME}` }
 
 export default async function Page() {
-  const collaborators = await getCollaborators();
-  const clients = await getClients();
-  
+  const collaborators = await getCollaborators()
+  const clients = await getClients()
+
   return (
     <>
-        {/* 
+      {/* 
       <ContentSection className="pt-header flex w-full flex-col items-center justify-center gap-14 xl:h-[90dvh] 2xl:h-[60dvh]">
         <Heading>Our Work</Heading>
         <div className="flex w-full justify-center gap-10">
@@ -72,10 +73,7 @@ export default async function Page() {
                 key={i}
                 className="grid place-items-center sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
               >
-                <Link
-                  href={collaborator.url}
-                  className="h-48 w-64 place-self-center"
-                >
+                <Link href={collaborator.url} className="h-48 w-64 place-self-center">
                   <Image
                     height={400}
                     width={400}
@@ -83,7 +81,7 @@ export default async function Page() {
                     src={toImageUrl(collaborator.logo!)}
                     alt=""
                   />
-            </Link>
+                </Link>
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -97,10 +95,7 @@ export default async function Page() {
         <Carousel className="h-full w-2/3 max-w-6xl lg:w-full">
           <CarouselContent>
             {resultExamples.map(({ URL }, i) => (
-              <CarouselItem
-                key={i}
-                className="grid place-items-center lg:basis-1/2 xl:basis-1/3"
-              >
+              <CarouselItem key={i} className="grid place-items-center lg:basis-1/2 xl:basis-1/3">
                 <EmbeddedReel url={URL} />
               </CarouselItem>
             ))}
@@ -110,5 +105,5 @@ export default async function Page() {
         </Carousel>
       </ContentSection>
     </>
-  );
+  )
 }

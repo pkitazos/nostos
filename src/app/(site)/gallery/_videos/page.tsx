@@ -1,13 +1,13 @@
-import { Metadata } from "next";
+import { Metadata } from 'next'
 
-import { ContentSection } from "@/components/content-section";
-import { Heading } from "@/components/ui/heading";
-import { videos } from "@/content";
+import { ContentSection } from '@/components/content-section'
+import { Heading } from '@/components/ui/heading'
+import { videos } from '@/content'
+import { COMPANY_NAME } from '@/content/config'
 
-export const metadata: Metadata = { title: "Video Gallery - Nõstos Agency" };
+export const metadata: Metadata = { title: `Video Gallery - ${COMPANY_NAME}` }
 
 export default async function Page() {
-
   return (
     <ContentSection className="pt-header flex w-full flex-col items-center gap-28">
       <Heading className="pt-28">Video Gallery</Heading>
@@ -17,20 +17,14 @@ export default async function Page() {
         ))}
       </div>
     </ContentSection>
-  );
+  )
 }
 
 function Video({ url }: { url: string }) {
   return (
-    <video
-      className="w-full"
-      width="1920"
-      height="1080"
-      controls
-      preload="none"
-    >
+    <video className="w-full" width="1920" height="1080" controls preload="none">
       <source src={url} type="video/mp4" />
       Your browser does not support the video tag.
     </video>
-  );
+  )
 }

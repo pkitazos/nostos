@@ -1,20 +1,13 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 
+import { COMPANY_NAME } from '@/content/config'
 import { getClient } from '@/content/get-clients'
 import { Media } from '@/payload-types'
 import { PhotoGallery } from './_components/photo-gallery'
 
 // TODO: make metadata dynamic
-export const metadata: Metadata = { title: 'Gallery - Nõstos Agency' }
-
-// export async function generateStaticParams() {
-//   const clients = await getClients()
-
-//   return clients.map((post) => ({
-//     slug: encodeURIComponent(post.name),
-//   }))
-// }
+export const metadata: Metadata = { title: `Gallery - ${COMPANY_NAME}` }
 
 type PageParams = Promise<{ slug: string }>
 

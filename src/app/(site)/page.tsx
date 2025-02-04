@@ -15,13 +15,14 @@ import {
 } from '@/components/ui/carousel'
 import { Heading } from '@/components/ui/heading'
 import { Paragraph } from '@/components/ui/paragraph'
+import { COMPANY_NAME } from '@/content/config'
 import { getClients } from '@/content/get-clients'
 import { getCollaborators } from '@/content/get-collaborators'
 import { SITE_IMAGES } from '@/content/images'
 import { toImageUrl } from '@/lib/utils/to-image-url'
 import { Testimonial } from './_components/testimonial'
 
-export const metadata: Metadata = { title: 'Nõstos Agency' }
+export const metadata: Metadata = { title: COMPANY_NAME }
 
 export default async function Home() {
   const clients = await getClients()
@@ -36,7 +37,7 @@ export default async function Home() {
           alt=""
         />
         <div className="flex flex-col items-center justify-center gap-10">
-          <h1 className="font-serif text-6xl text-white">Nõstos Agency</h1>
+          <h1 className="font-serif text-6xl text-white">{COMPANY_NAME}</h1>
           <h3 className="text-center text-2xl text-white md:text-2xl">
             Luxurious, Timeless, Digital Dreamscapes
           </h3>

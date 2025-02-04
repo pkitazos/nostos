@@ -2,13 +2,14 @@ import { Metadata } from 'next'
 
 import { ContentSection } from '@/components/content-section'
 import { ImageSection } from '@/components/image-section'
+import { Button } from '@/components/ui/button'
 import { Heading } from '@/components/ui/heading'
 import { Paragraph } from '@/components/ui/paragraph'
-import { TeamMember } from './_components/team-member'
-import { Button } from '@/components/ui/button'
+import { COMPANY_NAME } from '@/content/config'
 import Link from 'next/link'
+import { TeamMember } from './_components/team-member'
 
-export const metadata: Metadata = { title: 'About - Nõstos Agency' }
+export const metadata: Metadata = { title: `About - ${COMPANY_NAME}` }
 
 export default async function Page() {
   return (

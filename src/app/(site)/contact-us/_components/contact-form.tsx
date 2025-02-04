@@ -1,10 +1,9 @@
-"use client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { z } from "zod";
+'use client'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -12,54 +11,49 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-
-export const formSchema = z.object({
-  name: z
-    .string({ required_error: "Please enter a name" })
-    .min(2, "Please enter a Name"),
-  email: z
-    .string({ required_error: "Please enter an email" })
-    .email("Please enter a valid Email"),
-  subject: z
-    .string({ required_error: "Please enter a Subject Line" })
-    .min(2, "Subject Line too short"),
-  message: z
-    .string({ required_error: "Please enter your Message here" })
-    .min(10, "Message too short"),
-});
-
-type formData = z.infer<typeof formSchema>;
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { EmailFormData, emailFormSchema } from '@/lib/schemas/email'
+import { useState } from 'react'
 
 export function ContactForm() {
-  const form = useForm<formData>({ resolver: zodResolver(formSchema) });
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const form = useForm<EmailFormData>({
+    resolver: zodResolver(emailFormSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      subject: '',
+      message: '',
+    },
+  })
 
-  function onSubmit(data: formData) {
-    const { name, email, subject, message } = data;
+  async function onSubmit(data: EmailFormData) {
+    setIsSubmitting(true)
 
-    fetch(`/api/email`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name,
-        email,
-        subject,
-        message,
-      }),
-    })
-      .then((message) => {
-        console.log(message);
-        toast.success("Message delivered successfully.");
+    try {
+      const response = await fetch('/api/email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
       })
-      .catch(() => {
-        toast.error(
-          "Something went wrong while sending your message. Please try again later.",
-        );
-      });
 
-    form.reset(); // ! doesn't currently work
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to send message')
+      }
+
+      toast.success("Message sent successfully! We'll get back to you soon.")
+      form.reset()
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error('Form submission error:', error)
+      toast.error(error.message || 'Something went wrong. Please try again later.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -133,11 +127,11 @@ export function ContactForm() {
               )}
             />
           </div>
-          <Button className="w-full" type="submit">
-            Submit
+          <Button className="w-full" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Sending...' : 'Submit'}
           </Button>
         </form>
       </Form>
     </div>
-  );
+  )
 }

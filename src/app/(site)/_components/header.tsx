@@ -1,32 +1,28 @@
-"use client";
-import { cn } from "@/lib/utils";
-import { ClassValue } from "clsx";
-import { MenuIcon } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { ReactNode, useState } from "react";
+'use client'
+import { COMPANY_NAME } from '@/content/config'
+import { cn } from '@/lib/utils'
+import { ClassValue } from 'clsx'
+import { MenuIcon } from 'lucide-react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { ReactNode, useState } from 'react'
 
 export function Header() {
-  const darkHeaderPaths = [
-    "/our-philosophy",
-    "/about",
-    "/services",
-    "/gallery",
-  ];
+  const darkHeaderPaths = ['/our-philosophy', '/about', '/services', '/gallery']
 
-  const path = usePathname();
-  const isDark = darkHeaderPaths.some((p) => path.startsWith(p));
+  const path = usePathname()
+  const isDark = darkHeaderPaths.some((p) => path.startsWith(p))
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
   return (
     <header
       className={cn(
-        "absolute left-0 top-0 z-[99] flex h-16 w-full items-center justify-between px-10 font-[350] sm:h-28 lg:px-10 2xl:h-40 2xl:px-20",
-        isDark ? "text-foreground" : "text-background",
+        'absolute left-0 top-0 z-[99] flex h-16 w-full items-center justify-between px-10 font-[350] sm:h-28 lg:px-10 2xl:h-40 2xl:px-20',
+        isDark ? 'text-foreground' : 'text-background',
       )}
     >
       <Link href="/">
-        <h1 className="font-serif text-2xl md:text-3xl">Nõstos Agency</h1>
+        <h1 className="font-serif text-2xl md:text-3xl">{COMPANY_NAME}</h1>
       </Link>
       <div className="flex lg:hidden">
         <button onClick={() => setOpen(true)}>
@@ -38,7 +34,7 @@ export function Header() {
         <DesktopNav />
       </div>
     </header>
-  );
+  )
 }
 
 function DesktopNav() {
@@ -50,15 +46,15 @@ function DesktopNav() {
       <HeaderLink route="/gallery">Gallery</HeaderLink>
       <HeaderLink route="/contact-us">Contact Us</HeaderLink>
     </nav>
-  );
+  )
 }
 
 function MobileNav({ open }: { open: boolean }) {
   return (
     <nav
       className={cn(
-        "absolute left-0 top-0 h-dvh w-full place-items-center bg-background text-foreground",
-        open ? "grid" : "hidden",
+        'absolute left-0 top-0 h-dvh w-full place-items-center bg-background text-foreground',
+        open ? 'grid' : 'hidden',
       )}
     >
       <ul className="flex flex-col items-center justify-center gap-4 lg:flex-row lg:gap-11">
@@ -79,7 +75,7 @@ function MobileNav({ open }: { open: boolean }) {
         </HeaderLink>
       </ul>
     </nav>
-  );
+  )
 }
 
 function HeaderLink({
@@ -87,21 +83,21 @@ function HeaderLink({
   children: name,
   className,
 }: {
-  route: string;
-  children: ReactNode;
-  className?: ClassValue;
+  route: string
+  children: ReactNode
+  className?: ClassValue
 }) {
-  const path = usePathname();
+  const path = usePathname()
   return (
     <Link
       className={cn(
-        "decoration-1 underline-offset-8 hover:underline",
-        path.startsWith(route) && "underline",
+        'decoration-1 underline-offset-8 hover:underline',
+        path.startsWith(route) && 'underline',
         className,
       )}
       href={route}
     >
       {name}
     </Link>
-  );
+  )
 }
