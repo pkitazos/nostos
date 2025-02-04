@@ -1,6 +1,6 @@
 // storage-adapter-import-placeholder
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
-import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -22,8 +22,8 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     autoLogin: {
-      email: process.env.ADMIN_EMAIL || '',
-      password: process.env.ADMIN_PASSWORD || '',
+      email: process.env.ADMIN_EMAIL || 'dev@payloadcms.com',
+      password: process.env.ADMIN_PASSWORD || 'nostos-admin-test',
       prefillOnly: true,
     },
   },
@@ -38,9 +38,29 @@ export default buildConfig({
       connectionString: process.env.POSTGRES_URL || '',
     },
   }),
+  plugins: process.env.BLOB_READ_WRITE_TOKEN
+    ? [
+        vercelBlobStorage({
+          collections: { [Media.slug]: true },
+          token: process.env.BLOB_READ_WRITE_TOKEN || '',
+        }),
+      ]
+    : [],
+  async onInit(payload) {
+    const existingUsers = await payload.find({
+      collection: 'users',
+      limit: 1,
+    })
+
+    if (existingUsers.docs.length === 0) {
+      await payload.create({
+        collection: 'users',
+        data: {
+          email: process.env.ADMIN_EMAIL || 'dev@payloadcms.com',
+          password: process.env.ADMIN_PASSWORD || 'nostos-admin-test',
+        },
+      })
+    }
+  },
   sharp,
-  plugins: [
-    payloadCloudPlugin(),
-    // storage-adapter-placeholder
-  ],
 })
