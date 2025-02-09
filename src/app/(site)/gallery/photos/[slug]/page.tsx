@@ -1,11 +1,17 @@
 import Link from 'next/link'
 
 import { COMPANY_NAME } from '@/content/config'
-import { getClient } from '@/content/get-clients'
+import { getClient, getClients } from '@/content/get-clients'
 import { Media } from '@/payload-types'
 import { PhotoGallery } from './_components/photo-gallery'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600
+export const dynamicParams = true
+
+export async function generateStaticParams() {
+  const clients = await getClients()
+  return clients.map((client) => ({ slug: encodeURIComponent(client.name) }))
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params

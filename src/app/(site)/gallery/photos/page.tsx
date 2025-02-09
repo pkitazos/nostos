@@ -6,6 +6,9 @@ import { Heading } from '@/components/ui/heading'
 import { getClients } from '@/content/get-clients'
 import { COMPANY_NAME } from '@/content/config'
 
+export const revalidate = 3600
+export const dynamicParams = true
+
 export const metadata: Metadata = { title: `Photo Gallery - ${COMPANY_NAME}` }
 
 export default async function Page() {

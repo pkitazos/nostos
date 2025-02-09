@@ -20,7 +20,8 @@ import { SITE_IMAGES } from '@/content/images'
 import { toImageUrl } from '@/lib/utils/to-image-url'
 import { Testimonial } from './_components/testimonial'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600
+export const dynamicParams = true
 
 export const metadata: Metadata = { title: COMPANY_NAME }
 
