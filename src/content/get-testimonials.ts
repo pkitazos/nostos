@@ -1,6 +1,9 @@
-import { Testimonial } from '@/payload-types'
+import { payload } from '@/lib/db'
 
-export async function getTestimonials(): Promise<Testimonial[]> {
+export async function getTestimonials() {
+  return await payload.find({ collection: 'testimonials' }).then((res) => res.docs)
+}
+export async function getTestimonialsMock() {
   return [
     {
       id: 1,
@@ -10,7 +13,7 @@ export async function getTestimonials(): Promise<Testimonial[]> {
       variant: 'v2',
       logo: {
         id: 1,
-        url: '',
+        url: '/assets/expertise-1.png',
         createdAt: '2021-01-01',
         updatedAt: '2021-01-01',
       },
@@ -24,7 +27,7 @@ export async function getTestimonials(): Promise<Testimonial[]> {
       variant: 'v1',
       logo: {
         id: 2,
-        url: '',
+        url: '/assets/expertise-1.png',
         createdAt: '2021-01-01',
         updatedAt: '2021-01-01',
       },
@@ -39,7 +42,7 @@ export async function getTestimonials(): Promise<Testimonial[]> {
       variant: 'v2',
       logo: {
         id: 3,
-        url: '',
+        url: '/assets/expertise-1.png',
         createdAt: '2021-01-01',
         updatedAt: '2021-01-01',
       },
@@ -54,7 +57,7 @@ export async function getTestimonials(): Promise<Testimonial[]> {
       variant: 'v1',
       logo: {
         id: 4,
-        url: '',
+        url: '/assets/expertise-1.png',
         createdAt: '2021-01-01',
         updatedAt: '2021-01-01',
       },

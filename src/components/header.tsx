@@ -69,11 +69,15 @@ function HeaderLink({
   className?: ClassValue
 }) {
   const path = usePathname()
+
+  const isHome = route === '/'
+
   return (
     <Link
       className={cn(
         'decoration-1 underline-offset-8 hover:underline',
-        path.startsWith(route) && 'underline',
+        isHome && path === route && 'underline',
+        !isHome && path.startsWith(route) && 'underline',
         className,
       )}
       href={route}

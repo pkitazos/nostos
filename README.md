@@ -6,7 +6,7 @@ A Marketing Site built using Next JS and Payload CMS, utilising ISR.
 
 - [ ] admin panel colours / components
 - [ ] images not properly fetched after upload
-- [ ] description for clients
+- [ ] description for clients (WYSIWYG editor)
 - [ ] do something with client logos
 - [ ] push latest schema to neon
 - [ ] open links externally
@@ -14,8 +14,20 @@ A Marketing Site built using Next JS and Payload CMS, utilising ISR.
 - [ ] videos are still broken
 - [x] data access functions
 - [ ] db init scripts
-- [ ] implement ISR
+- [x] implement ISR
 - [x] hook up client collections to their respective page
+- [x] start new design
+- [ ] setup page creation (WYSIWYG)
+- [ ] "Our Expertise" sections
+- [ ] make list of tasks
+  - list image dimensions
+  - make them pick consistent colours (currently too many in use)
+  - get all icon assets as SVGs
+  - get site Favicon
+  - tell them they have to create the banners
+  - standardise fonts (too many)
+  - add link to client website on their page
+- [ ] add copyright to footer
 
 ## Database Setup
 

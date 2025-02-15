@@ -2,8 +2,9 @@ import type { Metadata } from 'next'
 import { Cormorant_Garamond, Inter, Montserrat } from 'next/font/google'
 import '../globals.css'
 
+import { Footer } from '@/components/footer'
+import { Header } from '@/components/header'
 import { Toaster } from '@/components/ui/sonner'
-import { Footer, Header } from './_components'
 import { COMPANY_NAME } from '@/content/config'
 
 const montserrat = Montserrat({

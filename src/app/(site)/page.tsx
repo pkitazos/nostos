@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { ImageSection } from '@/components/image-section'
 import { Button } from '@/components/ui/button'
@@ -11,10 +12,12 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel'
 import { COMPANY_NAME } from '@/content/config'
+import { getClients } from '@/content/get-clients'
 import { getTestimonials } from '@/content/get-testimonials'
 import { SITE_IMAGES } from '@/content/images'
 import { cn } from '@/lib/utils'
-import { TestimonialCard } from './_components/testimonial-card'
+import { getMediaAlt, getMediaUrl } from '@/lib/utils/to-image-url'
+import { TestimonialCard } from '@/components/testimonial-card'
 
 export const revalidate = 3600
 export const dynamicParams = true
@@ -22,6 +25,7 @@ export const dynamicParams = true
 export const metadata: Metadata = { title: COMPANY_NAME }
 
 export default async function Home() {
+  const clients = await getClients()
   const testimonials = await getTestimonials()
 
   return (
@@ -45,9 +49,22 @@ export default async function Home() {
         <div className="absolute bottom-0 left-0 z-20 flex w-full justify-end">
           <Carousel opts={{ loop: false }} className="w-full translate-y-[19rem]">
             <CarouselContent className="flex w-full">
-              {[1, 2, 3, 4].map((i) => (
-                <CarouselItem key={i} className="ml-20 h-96 max-w-[19rem] rounded-2xl bg-slate-400">
-                  &nbsp;
+              {clients.map((client) => (
+                <CarouselItem
+                  key={client.id}
+                  className="ml-20 grid h-96 max-w-[19rem] place-items-center rounded-2xl bg-slate-900"
+                >
+                  <Button asChild>
+                    <Link href={`/our-work/${encodeURIComponent(client.name)}`}>
+                      <Image
+                        className="h-40 w-40 object-contain"
+                        height={300}
+                        width={300}
+                        src={getMediaUrl(client.logo!)}
+                        alt={getMediaAlt(client.logo!)}
+                      />
+                    </Link>
+                  </Button>
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -115,27 +132,29 @@ export default async function Home() {
           <div className="h-60 w-80 rounded-3xl bg-slate-900">&nbsp;</div>
           <div className="h-60 w-80 rounded-3xl bg-slate-900">&nbsp;</div>
         </div>
-        <div className="my-16 flex w-full flex-col items-center justify-center">
-          <h3 className="font-serif text-7xl">Testimonials</h3>
-          {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.id}
-              className={cn(
-                'mt-20 flex w-full',
-                testimonial.variant === 'v1' && 'justify-start',
-                testimonial.variant === 'v2' && 'justify-end',
-              )}
-            >
-              <TestimonialCard testimonial={testimonial} />
-            </div>
-          ))}
-        </div>
+        {testimonials.length !== 0 && (
+          <div className="my-16 flex w-full flex-col items-center justify-center">
+            <h3 className="font-serif text-7xl">Testimonials</h3>
+            {testimonials.map((testimonial) => (
+              <div
+                key={testimonial.id}
+                className={cn(
+                  'mt-20 flex w-full',
+                  testimonial.variant === 'v1' && 'justify-start',
+                  testimonial.variant === 'v2' && 'justify-end',
+                )}
+              >
+                <TestimonialCard testimonial={testimonial} />
+              </div>
+            ))}
+          </div>
+        )}
       </section>
       <ImageSection className="relative flex h-[1500px] flex-col items-center justify-center">
         <div className="z-10 flex translate-y-72 flex-col items-center justify-center gap-10 text-secondary-foreground">
           <h3 className="text-4xl">Contact Us</h3>
           <p>We&apos;ll prepare a proposal and walk you through every step of the process.</p>
-          <Button>contact us</Button>
+          <Button className="w-80 rounded-xl py-6">Contact Us</Button>
         </div>
         <Image
           className="absolute left-0 top-0 h-max w-full -translate-y-[500px] object-cover"

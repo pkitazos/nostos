@@ -28,16 +28,15 @@ export default async function Page({ params }: { params: PageParams }) {
   return (
     <main className="pt-header flex flex-col items-center">
       <h1 className="mt-32 text-2xl">
-        <span className="text-zinc-400">Client: </span>
-        <Link
-          className="text-stone-500 decoration-[1.5px] underline-offset-2 hover:underline"
-          href={client.url}
-          target="_blank"
+        <h1
+          className="font-semibold uppercase text-accent"
+          // href={client.url}
+          // target="_blank"
         >
           {client.name}
-        </Link>
+        </h1>
       </h1>
-      <p className="mt-14 max-w-2xl text-justify">{client.description}</p>
+      <p className="mt-14 max-w-2xl text-center tracking-widest">{client.description}</p>
       <section className="w-full max-w-9xl px-10 pt-32">
         <PhotoGallery images={client.photos?.map((x) => (x.photo as Media)!) ?? []} />
       </section>
