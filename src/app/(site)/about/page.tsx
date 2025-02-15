@@ -14,7 +14,7 @@ export const metadata: Metadata = { title: `About - ${COMPANY_NAME}` }
 export default async function Page() {
   return (
     <>
-      <ImageSection className="pt-header flex max-h-[38dvh] min-h-80 flex-col items-center justify-end bg-accent pb-10 md:pb-16 lg:pb-20 2xl:pb-28">
+      <ImageSection className="mt-header flex min-h-80 flex-col items-center justify-end bg-secondary pb-10 md:pb-16 lg:pb-28 2xl:pb-40">
         <Heading className="max-w-2xl px-5 text-center text-4xl md:px-0">
           A passionate team of creatives and strategic thinkers.
         </Heading>
@@ -60,7 +60,9 @@ export default async function Page() {
           captivate your audiences hearts.
         </p>
         <Link href="/contact-us">
-          <Button size="lg">Contact Us</Button>
+          <Button variant="dark" size="lg">
+            Contact Us
+          </Button>
         </Link>
       </ImageSection>
     </>

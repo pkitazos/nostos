@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { Heading } from '@/components/ui/heading'
 import { Client } from '@/payload-types'
-import { toImageUrl } from '@/lib/utils/to-image-url'
+import { getMediaUrl } from '@/lib/utils/to-image-url'
 
 export function PhotoGalleryGrid({ clients }: { clients: Client[] }) {
   return (
@@ -16,7 +16,7 @@ export function PhotoGalleryGrid({ clients }: { clients: Client[] }) {
         >
           <Image
             className="absolute left-0 top-0 -z-10 h-full w-full object-cover"
-            src={toImageUrl(banner_photo!) ?? ''}
+            src={getMediaUrl(banner_photo!) ?? ''}
             alt=""
             height={400}
             width={900}

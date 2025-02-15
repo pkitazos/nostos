@@ -1,3 +1,5 @@
-import { Media } from "@/payload-types";
+import { Media } from '@/payload-types'
 
-export const toImageUrl = (image: Media | number) => (image as Media).url ?? ''
+export const getMediaUrl = (image: Media | number) => (image as Media).url ?? ''
+
+export const getMediaAlt = (image: Media | number) => (image as Media).alt ?? ''

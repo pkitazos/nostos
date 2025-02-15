@@ -1,8 +1,6 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
-import Link from 'next/link'
 
-import { ContentSection } from '@/components/content-section'
 import { ImageSection } from '@/components/image-section'
 import { Button } from '@/components/ui/button'
 import {
@@ -12,13 +10,11 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
-import { Heading } from '@/components/ui/heading'
-import { Paragraph } from '@/components/ui/paragraph'
 import { COMPANY_NAME } from '@/content/config'
-import { getClients } from '@/content/get-clients'
+import { getTestimonials } from '@/content/get-testimonials'
 import { SITE_IMAGES } from '@/content/images'
-import { toImageUrl } from '@/lib/utils/to-image-url'
-import { Testimonial } from './_components/testimonial'
+import { cn } from '@/lib/utils'
+import { TestimonialCard } from './_components/testimonial-card'
 
 export const revalidate = 3600
 export const dynamicParams = true
@@ -26,145 +22,127 @@ export const dynamicParams = true
 export const metadata: Metadata = { title: COMPANY_NAME }
 
 export default async function Home() {
-  const clients = await getClients()
+  const testimonials = await getTestimonials()
 
   return (
-    <>
-      <ImageSection className="pt-header h-dvh flex-col items-center justify-center bg-stone-500/20">
+    <main className="bg-gradient-to-b from-secondary to-background">
+      <ImageSection className="pt-header relative h-max flex-col items-center justify-start">
         <Image
-          className="absolute left-0 top-0 -z-10 h-full w-full object-cover"
+          className="h-max w-full bg-pink-300 object-contain"
           {...SITE_IMAGES.home.heroBanner}
           alt=""
         />
-        <div className="flex flex-col items-center justify-center gap-10">
-          <h1 className="font-serif text-6xl text-white">{COMPANY_NAME}</h1>
-          <h3 className="text-center text-2xl text-white md:text-2xl">
+        <div className="absolute z-10 mt-28 flex flex-col items-center justify-start gap-10">
+          <h3 className="heigh text-center font-sans text-2xl font-semibold uppercase tracking-[0.2rem] text-secondary md:text-2xl">
             Luxurious, Timeless, Digital Dreamscapes
           </h3>
-          <Link href="/contact-us">
-            <Button>Contact Us</Button>
-          </Link>
+          <Image
+            className="absolute w-60 -translate-y-5 object-cover"
+            {...SITE_IMAGES.logo.main}
+            alt=""
+          />
+        </div>
+        <div className="absolute bottom-0 left-0 z-20 flex w-full justify-end">
+          <Carousel opts={{ loop: false }} className="w-full translate-y-[19rem]">
+            <CarouselContent className="flex w-full">
+              {[1, 2, 3, 4].map((i) => (
+                <CarouselItem key={i} className="ml-20 h-96 max-w-[19rem] rounded-2xl bg-slate-400">
+                  &nbsp;
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="translate-x-[4rem] translate-y-60" />
+            <CarouselNext className="-translate-x-[4rem] translate-y-60" />
+          </Carousel>
         </div>
       </ImageSection>
-      <ContentSection className="flex h-[50dvh] flex-col justify-center gap-10 md:grid md:grid-cols-2 md:gap-9 lg:gap-16">
-        <div className="grid place-items-center">
-          <Heading>Our Philosophy</Heading>
-        </div>
-        <Paragraph className="grid place-items-center px-4 md:px-10 2xl:px-28">
-          In the world of digital storytelling, Nõstos echoes the significance of returning,
-          creating a sense of belonging and connection. Our philosophy is rooted in the profound
-          meaning of creating a luxurious experience that transcends the traditional. We define
-          luxury as an intimate, attentive journey, fostering genuine connections.
-        </Paragraph>
-      </ContentSection>
-      <ContentSection className="flex flex-col gap-28 pb-20 md:grid md:grid-cols-2 md:gap-9 md:pb-40 lg:pb-96">
+      <ImageSection className="relative flex h-[1250px] items-center justify-start">
+        <h3 className="z-10 ml-20 translate-y-32 text-center font-sans text-2xl tracking-[0.2rem] text-accent-foreground md:text-4xl">
+          Shaping brands that <strong className="font-bold">inspire,</strong>
+          <br />
+          <strong className="font-bold">connect,</strong> and{' '}
+          <strong className="font-bold">define luxury.</strong>
+        </h3>
         <Image
-          className="h-[30rem] w-full object-cover lg:h-[60rem]"
-          {...SITE_IMAGES.home.ourApproach}
+          className="absolute left-0 top-0 h-full w-full object-cover object-[50%_5%]"
+          {...SITE_IMAGES.home.banner1}
           alt=""
         />
-        <div className="grid place-items-center">
-          <div className="flex flex-col items-center gap-10 px-4 md:items-start md:px-10 2xl:px-28">
-            <Heading>Our Approach</Heading>
-            <Paragraph>
-              In an era valuing authentic connections, we craft compelling narratives that resonate
-              deeply with your audience. Our expertise transforms experiences into sophisticated
-              tales, setting your brand apart in the digital landscape. Committed to understanding
-              your vision, we collaborate creatively to leave a lasting impact and foster enduring
-              partnerships.
-            </Paragraph>
-            <Paragraph>
-              We are a creative team fusing storytelling with luxury to craft unforgettable digital
-              experiences. More than an agency, we are collaborative partners dedicated to making
-              lasting impressions for your brand. Our goal is to exceed expectations by merging our
-              creative expertise with your vision.
-            </Paragraph>
+      </ImageSection>
+      <ImageSection className="relative flex h-[2000px] flex-col items-end justify-start bg-secondary">
+        <h3 className="z-10 mr-20 mt-20 text-4xl font-semibold uppercase text-accent-foreground">
+          Our Expertise
+        </h3>
+        <div className="relative z-20 flex flex-col justify-center">
+          <Image className="h-max w-full" {...SITE_IMAGES.logo.withWave} alt="" />
+          <div className="absolute left-0 flex h-1/2 w-full translate-y-16 flex-col justify-between gap-5 px-20">
+            <div className="flex w-full justify-evenly gap-5">
+              <p className="w-max -translate-x-28 text-xl font-semibold text-white">
+                Branding Strategy
+              </p>
+              <p className="w-max translate-y-11 text-xl font-semibold text-white">Consulting</p>
+              <p className="w-max text-xl font-semibold text-white">Content Production</p>
+              <p className="w-max translate-y-11 text-xl font-semibold text-white">
+                Influencer Marketing
+              </p>
+            </div>
+            <div className="flex w-full -translate-x-20 justify-end gap-40">
+              <p className="w-max text-xl font-semibold text-white">Social Media Management</p>
+              <p className="w-max text-xl font-semibold text-white">Performance Marketing</p>
+            </div>
           </div>
         </div>
-      </ContentSection>
-      <Image className="h-[66dvh] w-full object-cover" {...SITE_IMAGES.home.banner1} alt="" />
-      <ContentSection className="grid min-h-[50dvh] grid-cols-1 gap-y-20 py-20 md:grid-cols-2">
+        <Image
+          className="absolute left-0 top-0 h-max w-full -translate-y-60 object-cover"
+          {...SITE_IMAGES.home.banner2}
+          alt=""
+        />
+      </ImageSection>
+      <section className="flex h-full flex-col px-20 py-20">
         <div className="grid place-items-center">
-          <Heading>Testimonials</Heading>
+          <h3 className="-translate-y-40 text-4xl font-semibold uppercase text-accent-foreground">
+            Our Philosophy
+          </h3>
         </div>
-        <div className="flex flex-col items-start justify-center gap-20">
-          <Testimonial name="Anil Ozer (Cook's Club Adakoy)">
-            Nadia, did a great job here at Cook&apos;s Club Adakoy, it was an absolute pleasure.
-          </Testimonial>
-          <Testimonial name="Antonis (Casa Cook Rhodes)">
-            Ελπίζω να δουλέψουμε μαζί και του χρόνου! Κάνετε εξαιρετική δουλειά και χαίρομαι πολύ
-            που συνεργαστήκαμε!
-          </Testimonial>
-          <Testimonial name="(Nissiblu Beach Resort)">
-            It was great collaborating with you last year, we are happy to continue with our
-            collaboration. The Social Media Strategy was on point.
-          </Testimonial>
+        <p className="mx-auto mb-20 max-w-5xl text-justify font-sans text-2xl">
+          In the world of digital storytelling, Nõstos echoes the significance of returning,
+          creating a sense of belonging and connection. It&apos;s important to us to nurture and
+          build relationships helping us grow together. We define luxury as an intimate, attentive
+          journey, fostering genuine connections.
+        </p>
+        <div className="my-20 grid grid-cols-3 gap-10">
+          <div className="h-60 w-80 rounded-3xl bg-slate-900">&nbsp;</div>
+          <div className="h-60 w-80 rounded-3xl bg-slate-900">&nbsp;</div>
+          <div className="h-60 w-80 rounded-3xl bg-slate-900">&nbsp;</div>
         </div>
-      </ContentSection>
-      <Carousel>
-        <CarouselContent>
-          <CarouselItem>
-            <Image
-              className="h-dvh w-full object-cover"
-              {...SITE_IMAGES.home.carousel.img1}
-              alt=""
-            />
-          </CarouselItem>
-          <CarouselItem>
-            <Image
-              className="h-dvh w-full object-cover object-center"
-              {...SITE_IMAGES.home.carousel.img2}
-              alt=""
-            />
-          </CarouselItem>
-          <CarouselItem>
-            <Image
-              className="h-dvh w-full object-cover object-[50%_20%]"
-              {...SITE_IMAGES.home.carousel.img3}
-              alt=""
-            />
-          </CarouselItem>
-          <CarouselItem>
-            <Image
-              className="h-dvh w-full object-cover"
-              {...SITE_IMAGES.home.carousel.img4}
-              alt=""
-            />
-          </CarouselItem>
-        </CarouselContent>
-        <CarouselPrevious className="translate-x-[4rem] bg-accent hover:bg-accent/50" />
-        <CarouselNext className="-translate-x-[4rem] bg-accent hover:bg-accent/50" />
-      </Carousel>
-      <ContentSection className="flex flex-col items-center justify-start px-10 py-40 sm:py-56 md:px-20 lg:px-20">
-        <Heading className="mb-32 sm:mb-56">Our Collaborations</Heading>
-        <div className="grid w-full grid-cols-1 place-content-around gap-10 sm:grid-cols-2 sm:gap-16 md:gap-32 lg:grid-cols-3 xl:grid-cols-4">
-          {clients.map((collaborator, i) => (
-            <Link
-              key={i}
-              href={`/gallery/photos/${encodeURIComponent(collaborator.name)}`}
-              className="h-48 w-64 place-self-center"
+        <div className="my-16 flex w-full flex-col items-center justify-center">
+          <h3 className="font-serif text-7xl">Testimonials</h3>
+          {testimonials.map((testimonial) => (
+            <div
+              key={testimonial.id}
+              className={cn(
+                'mt-20 flex w-full',
+                testimonial.variant === 'v1' && 'justify-start',
+                testimonial.variant === 'v2' && 'justify-end',
+              )}
             >
-              <Image
-                height={400}
-                width={400}
-                className="h-[200px] w-[300px] object-cover"
-                src={toImageUrl(collaborator.logo!)}
-                alt=""
-              />
-            </Link>
+              <TestimonialCard testimonial={testimonial} />
+            </div>
           ))}
         </div>
-      </ContentSection>
-      <Image className="h-[66dvh] w-full object-cover" {...SITE_IMAGES.home.banner1} alt="" />
-      <ImageSection className="flex h-[70dvh] flex-col items-center justify-center gap-5 bg-secondary text-secondary-foreground">
-        <Heading className="mb-5">Contact us</Heading>
-        <p className="px-5 text-center">
-          We&apos;ll prepare a proposal and walk you through every step of the process.
-        </p>
-        <Link href="/contact-us">
-          <Button size="lg">Contact Us</Button>
-        </Link>
+      </section>
+      <ImageSection className="relative flex h-[1500px] flex-col items-center justify-center">
+        <div className="z-10 flex translate-y-72 flex-col items-center justify-center gap-10 text-secondary-foreground">
+          <h3 className="text-4xl">Contact Us</h3>
+          <p>We&apos;ll prepare a proposal and walk you through every step of the process.</p>
+          <Button>contact us</Button>
+        </div>
+        <Image
+          className="absolute left-0 top-0 h-max w-full -translate-y-[500px] object-cover"
+          {...SITE_IMAGES.home.banner3}
+          alt=""
+        />
       </ImageSection>
-    </>
+    </main>
   )
 }

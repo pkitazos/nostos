@@ -38,7 +38,7 @@ export default function RootLayout({
         className={`${cormorantGaramond.variable} ${montserrat.variable} ${inter.variable} font-sans`}
       >
         <Header />
-        <main className="text-background-foreground">{children}</main>
+        <main className="text-background-foreground bg-background">{children}</main>
         <Footer />
         <Toaster />
       </body>

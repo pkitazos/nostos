@@ -1,5 +1,6 @@
 'use client'
 import { COMPANY_NAME } from '@/content/config'
+import { NAVIGATION } from '@/content/header'
 import { cn } from '@/lib/utils'
 import { ClassValue } from 'clsx'
 import { MenuIcon } from 'lucide-react'
@@ -8,21 +9,11 @@ import { usePathname } from 'next/navigation'
 import { ReactNode, useState } from 'react'
 
 export function Header() {
-  const darkHeaderPaths = ['/our-philosophy', '/about', '/services', '/gallery']
-
-  const path = usePathname()
-  const isDark = darkHeaderPaths.some((p) => path.startsWith(p))
-
   const [open, setOpen] = useState(false)
   return (
-    <header
-      className={cn(
-        'absolute left-0 top-0 z-[99] flex h-16 w-full items-center justify-between px-10 font-[350] sm:h-28 lg:px-10 2xl:h-40 2xl:px-20',
-        isDark ? 'text-foreground' : 'text-background',
-      )}
-    >
+    <header className="absolute left-0 top-0 z-[99] flex h-16 w-full items-center justify-between bg-primary px-10 font-[350] text-primary-foreground sm:h-28 lg:px-10 2xl:h-40 2xl:px-20">
       <Link href="/">
-        <h1 className="font-serif text-2xl md:text-3xl">{COMPANY_NAME}</h1>
+        <h1 className="font-serif text-2xl md:text-4xl">{COMPANY_NAME}</h1>
       </Link>
       <div className="flex lg:hidden">
         <button onClick={() => setOpen(true)}>
@@ -40,11 +31,11 @@ export function Header() {
 function DesktopNav() {
   return (
     <nav className="flex flex-col items-center justify-center gap-4 lg:flex-row lg:gap-8">
-      <HeaderLink route="/our-philosophy">Our Philosophy</HeaderLink>
-      <HeaderLink route="/about">About</HeaderLink>
-      <HeaderLink route="/services">Services</HeaderLink>
-      <HeaderLink route="/gallery">Gallery</HeaderLink>
-      <HeaderLink route="/contact-us">Contact Us</HeaderLink>
+      {NAVIGATION.map(({ href, displayName }) => (
+        <HeaderLink key={href} route={href}>
+          {displayName}
+        </HeaderLink>
+      ))}
     </nav>
   )
 }
@@ -58,21 +49,11 @@ function MobileNav({ open }: { open: boolean }) {
       )}
     >
       <ul className="flex flex-col items-center justify-center gap-4 lg:flex-row lg:gap-11">
-        <HeaderLink route="/our-philosophy" className="text-2xl">
-          Our Philosophy
-        </HeaderLink>
-        <HeaderLink route="/about" className="text-2xl">
-          About
-        </HeaderLink>
-        <HeaderLink route="/services" className="text-2xl">
-          Services
-        </HeaderLink>
-        <HeaderLink route="/gallery" className="text-2xl">
-          Gallery
-        </HeaderLink>
-        <HeaderLink route="/contact-us" className="text-2xl">
-          Contact Us
-        </HeaderLink>
+        {NAVIGATION.map(({ href, displayName }) => (
+          <HeaderLink key={href} route={href} className="text-2xl">
+            {displayName}
+          </HeaderLink>
+        ))}
       </ul>
     </nav>
   )

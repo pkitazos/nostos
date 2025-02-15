@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export function Footer() {
   return (
-    <footer className="flex h-[55dvh] w-full flex-col items-center justify-center gap-5 font-light">
+    <footer className="flex h-[400px] w-full flex-col items-center justify-center gap-5 bg-background font-light">
       <h1 className="text-2xl tracking-tight">Share your vision with us.</h1>
       <p>{CONTACT_EMAIL}</p>
       <Link href="https://www.instagram.com/nostosagency/">

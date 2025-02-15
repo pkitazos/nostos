@@ -1,7 +1,7 @@
-import Image from "next/image";
+import Image from 'next/image'
 
-import { Media } from "@/payload-types";
-import { toImageUrl } from "@/lib/utils/to-image-url";
+import { Media } from '@/payload-types'
+import { getMediaUrl } from '@/lib/utils/to-image-url'
 
 // TODO: Images load very slowly add some sort of loading state
 
@@ -13,13 +13,13 @@ export function PhotoGallery({ images }: { images: Media[] }) {
           <Image
             key={i}
             className="h-full w-full object-cover"
-            src={toImageUrl(image)}
+            src={getMediaUrl(image)}
             alt=""
             width={4475}
             height={6717}
           />
-        </div>),
-      )}
+        </div>
+      ))}
     </div>
-  );
+  )
 }
